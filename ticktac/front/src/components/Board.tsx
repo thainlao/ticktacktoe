@@ -25,9 +25,7 @@ function checkWinner(board: Cell[]) {
 }
 
 // minimax
-function bestMove(board: Cell[], player: Player): number {
-  const opponent: Player = player === 'O' ? 'X' : 'O';
-
+function bestMove(board: Cell[]): number {
   function minimax(b: Cell[], turn: Player): {score:number, idx:number} {
     const winner = checkWinner(b);
     if (winner === 'O') return {score: 10, idx: -1};
@@ -94,7 +92,7 @@ export default function Board({ onNotify }: { onNotify: (s:string) => void }) {
     if (playerTurn === 'O') {
       setIsLocked(true); // FIX — игрок временно не может кликать
 
-      const idx = bestMove(board, 'O');
+      const idx = bestMove(board);
       if (idx >= 0) {
         setTimeout(() => {
           setBoard(prev => {
